@@ -23,7 +23,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
     AuthorListComponent,
     AddAuthorComponent,
     AuthorDetailsComponent,
-    AuthorUpdateComponent
+    AuthorUpdateComponent,
   ],
   imports: [
     BrowserModule,

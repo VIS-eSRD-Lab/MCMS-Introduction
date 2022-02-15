@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Author} from "../../models/author";
 import {AuthorServicesService} from "../../services/author-services.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {Genre} from "../../models/genre";
 
 @Component({
   selector: 'app-author-update',
@@ -19,7 +20,7 @@ export class AuthorUpdateComponent implements OnInit {
     'Comic Books',
   ];
 
-  selected_genres?: string[];
+  selected_genres?: Genre[];
 
   id?: string;
   author = new Author();
@@ -38,7 +39,7 @@ export class AuthorUpdateComponent implements OnInit {
           .subscribe({
             next: (data) => {
               this.author = data;
-              this.selected_genres = this.author.genre
+              this.selected_genres = []
               console.log(data);
             },
             error: (e) => console.error(e)

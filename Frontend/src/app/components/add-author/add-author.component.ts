@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Author} from "../../models/author";
 import {AuthorServicesService} from "../../services/author-services.service";
+import {Genre} from "../../models/genre";
+import {GenreService} from "../../services/genre.service";
 
 @Component({
   selector: 'app-add-author',
@@ -18,7 +20,9 @@ export class AddAuthorComponent implements OnInit {
     'Comic Books',
   ];
 
-  selected_genres?: [];
+  db_genres: any
+
+  selected_genres?: Genre[];
 
   author: Author = {
     name: '',
@@ -29,10 +33,18 @@ export class AddAuthorComponent implements OnInit {
   };
   submitted = false;
 
-  constructor(private authorService: AuthorServicesService) {
+  constructor(private authorService: AuthorServicesService, private genreService: GenreService) {
   }
 
   ngOnInit(): void {
+    this.genreService.getAll()
+      .subscribe({
+        next: (data) => {
+          this.db_genres = data;
+          console.log(data);
+        },
+        error: (e) => console.error(e)
+      });
   }
 
   print(): void {
