@@ -14,6 +14,8 @@ import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {DataTablesModule} from "angular-datatables";
 import {NgSelectModule} from "@ng-select/ng-select";
+import { NewComComponent } from './components/new-com/new-com.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import {NgSelectModule} from "@ng-select/ng-select";
     AuthorListComponent,
     AddAuthorComponent,
     AuthorDetailsComponent,
-    AuthorUpdateComponent
+    AuthorUpdateComponent,
+    NewComComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

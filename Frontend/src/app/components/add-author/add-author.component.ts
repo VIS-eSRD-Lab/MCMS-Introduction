@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Author} from "../../models/author";
 import {AuthorServicesService} from "../../services/author-services.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-add-author',
@@ -22,17 +23,23 @@ export class AddAuthorComponent implements OnInit {
 
   author: Author = {
     name: '',
-    age: 0,
+    age: 10,
     email: '',
     phone: '',
-    genre: []
+    genre: [],
+    registration: new Date(),
+    subauthor:''
   };
   submitted = false;
+  all_authors?: Observable<Author[]>;
 
   constructor(private authorService: AuthorServicesService) {
   }
 
   ngOnInit(): void {
+
+   this.all_authors =  this.authorService.getAll();
+
   }
 
   print(): void {
@@ -45,8 +52,11 @@ export class AddAuthorComponent implements OnInit {
       age: this.author.age,
       email: this.author.email,
       phone: this.author.phone,
-      genre: this.selected_genres
+      genre: this.selected_genres,
+      registration: this.author.registration,
+      subauthor: this.author.subauthor
     };
+    console.log(data)
 
     this.authorService.create(data)
       .subscribe({

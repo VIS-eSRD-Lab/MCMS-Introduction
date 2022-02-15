@@ -24,6 +24,24 @@
               <input type="text" class="form-control" id="age" required [(ngModel)]="author.age" name="age"/>
             </div>
 
+            <!------>
+            <div class="form-group mt-2">
+              <label for="age">Registration Date</label>
+              <input type="date" class="form-control" id="registration" required [(ngModel)]="author.registration" name="registration"/>
+            </div>
+
+            <div class="form-group mt-2">
+              <label for="age">Sub Author</label>
+              <select name="doctorid" id="subauthor"
+                      class="form-control">
+                <option *ngFor="let author of all_authors | async;"
+                        [value]=[author.id]> {{ author.name }}
+                </option>
+                <option [value]="null">Not set</option>
+              </select>
+            </div>
+
+
             <div class="form-group mt-2">
               <label for="genre">Author's book genres</label>
               <ng-select (change)="print()" [items]="genres" bindLabel="genre" id="genre" name="genre"
@@ -31,6 +49,7 @@
                          appendTo="body" [multiple]="true" [(ngModel)]="selected_genres">
               </ng-select>
             </div>
+
 
             <button (click)="saveAuthor()" class="btn btn-sm float-end btn-success mt-3"
                     [disabled]="authorForm.invalid"><i

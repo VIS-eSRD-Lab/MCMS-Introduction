@@ -6,4 +6,5 @@ export class Author {
   email?: string;
   genre?: string[];
   registration?: Date;
+  subauthor?: string;
 }
