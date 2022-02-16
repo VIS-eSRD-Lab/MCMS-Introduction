@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Author} from "../../models/author";
 import {AuthorServicesService} from "../../services/author-services.service";
-import {ActivatedRoute, Params, Router} from "@angular/router";
-import {Genre} from "../../models/genre";
+import {ActivatedRoute, Params} from "@angular/router";
+import {GenreService} from "../../services/genre.service";
 
 @Component({
   selector: 'app-author-update',
@@ -10,23 +10,25 @@ import {Genre} from "../../models/genre";
   styleUrls: ['./author-update.component.css']
 })
 export class AuthorUpdateComponent implements OnInit {
-  genres = [
-    'Drama',
-    'Fiction',
-    'Horror',
-    'Sci-fi',
-    'Romance',
-    'Dystopian Future',
-    'Comic Books',
-  ];
-
-  selected_genres?: Genre[];
+  // genres = [
+  //   'Drama',
+  //   'Fiction',
+  //   'Horror',
+  //   'Sci-fi',
+  //   'Romance',
+  //   'Dystopian Future',
+  //   'Comic Books',
+  // ];
+  selected: any;
+  genres: any;
 
   id?: string;
   author = new Author();
   submitted = false;
 
-  constructor(private authorService: AuthorServicesService, private route: ActivatedRoute, private router: Router) {
+  constructor(private authorService: AuthorServicesService,
+              private route: ActivatedRoute,
+              private genreService: GenreService) {
   }
 
   ngOnInit(): void {
@@ -39,17 +41,24 @@ export class AuthorUpdateComponent implements OnInit {
           .subscribe({
             next: (data) => {
               this.author = data;
-              this.selected_genres = []
-              console.log(data);
+              this.selected = this.author.genre
             },
             error: (e) => console.error(e)
           });
       }
     );
-  }
 
-  print(): void {
-    console.log(this.selected_genres)
+    this.genreService.getAll()
+      .subscribe({
+        next: (data) => {
+          this.genres = data;
+          // this.dbGenres.forEach((g) =>{
+          //   console.log(g)
+          //   this.genres.push({id:g.id, name:g.name});
+          // })
+        },
+        error: (e) => console.error(e)
+      });
   }
 
   updateAuthor(): void {
@@ -59,7 +68,7 @@ export class AuthorUpdateComponent implements OnInit {
         age: this.author.age,
         email: this.author.email,
         phone: this.author.phone,
-        genre: this.selected_genres
+        genre: this.selected
       };
 
       this.authorService.update(this.id, data)

@@ -25,9 +25,9 @@
 
           <div class="form-group mt-2">
             <label for="genre">Author's book genres</label>
-            <ng-select (change)="print()" [items]="genres" bindLabel="genre" id="genre" name="genre"
+            <ng-select [items]="genres" bindLabel="name" id="genre" name="genre"
                        placeholder="Select genres"
-                       appendTo="body" [multiple]="true" [(ngModel)]="selected_genres">
+                       appendTo="body" [multiple]="true" [(ngModel)]="selected">
             </ng-select>
           </div>
           <div *ngIf="submitted" class="alert mt-3 mb-3 alert-warning alert-dismissible fade show" role="alert">
